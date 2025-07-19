@@ -1,0 +1,15 @@
+<div class="container">
+    <h2>{{ .Title }}</h2>
+    <p>Enter the email of a user you created on the Users page to log in.</p>
+    <div class="card">
+        <form hx-post="/login">
+            <!-- Gorilla CSRF requires the token to be in the form body -->
+            <input type="hidden" name="gorilla.csrf.Token" value="{{ .CSRFToken }}">
+            <div class="form-group-column">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" placeholder="user@example.com" required>
+            </div>
+            <button type="submit">Login</button>
+        </form>
+    </div>
+</div>
