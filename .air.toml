@@ -1,0 +1,17 @@
+# Config file for Air live-reloader (https://github.com/cosmtrek/air)
+root = "."
+tmp_dir = "tmp"
+
+[build]
+  cmd = "go build -o ./tmp/main ./cmd/web"
+  bin = "./tmp/main"
+  full_bin = "APP_ENV=development ./tmp/main"
+  include_ext = ["go", "html", "css"]
+  exclude_dir = ["assets", "tmp", "vendor"]
+  log = "air.log"
+
+[log]
+  time = true
+
+[misc]
+  clean_on_exit = true

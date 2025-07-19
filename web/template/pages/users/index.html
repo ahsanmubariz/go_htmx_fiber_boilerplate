@@ -1,0 +1,39 @@
+<div class="container">
+    <h2>{{ .Title }}</h2>
+    <p>A simple CRUD interface powered by Go, Fiber, and HTMX.</p>
+
+    <div class="card">
+        <h3>Add New User</h3>
+        <form 
+            hx-post="/users" 
+            hx-target="#user-table-body" 
+            hx-swap="afterbegin"
+            hx-on::after-request="if(event.detail.successful) this.reset()"
+        >
+            <!-- Gorilla CSRF requires the token to be in the form body -->
+            <input type="hidden" name="gorilla.csrf.Token" value="{{ .CSRFToken }}">
+            <div class="form-group">
+                <input type="text" name="name" placeholder="Name" required>
+                <input type="email" name="email" placeholder="Email" required>
+                <button type="submit">Add User</button>
+            </div>
+        </form>
+    </div>
+
+    <h3>Existing Users</h3>
+    <table class="user-table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody id="user-table-body">
+            {{ range .Users }}
+                {{ template "partials/users/user-row" . }}
+            {{ end }}
+        </tbody>
+    </table>
+</div>
